@@ -50,7 +50,7 @@ const inquirySchema = z.object({
   referralSource: z.string()
     .min(1, "Please tell us who referred you")
     .max(200, "Referral source must be less than 200 characters"),
-  clubhouse: z.string().min(1, 'Please select a property'),
+  clubhouse: z.string().default('P1'),
   preferredPlan: z.string().min(1, 'Please select a stay duration'),
   message: z.string()
     .max(1000, "Message must be less than 1000 characters")
@@ -184,7 +184,7 @@ export default function Membership() {
       contact: '',
       email: '',
       referralSource: '',
-      clubhouse: '',
+      clubhouse: 'P1',
       preferredPlan: 'monthly',
       message: '',
     },
@@ -219,7 +219,7 @@ export default function Membership() {
   });
 
   const onSubmit = (data: InquiryFormData) => {
-    const requiredFields = ['name', 'contact', 'email', 'referralSource', 'clubhouse', 'preferredPlan'];
+    const requiredFields = ['name', 'contact', 'email', 'referralSource', 'preferredPlan'];
     const missingFields = requiredFields.filter(field => !data[field as keyof InquiryFormData]?.toString().trim());
     if (missingFields.length > 0) {
       toast({ variant: 'destructive', title: 'Missing Required Fields', description: `Please fill in: ${missingFields.join(', ')}`, duration: 5000 });
@@ -577,25 +577,7 @@ export default function Membership() {
                     )} />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <FormField control={form.control} name="clubhouse" render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-gray-700 font-medium">Property *</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger className="rounded-xl border-gray-200" data-testid="select-clubhouse">
-                              <SelectValue placeholder="Select property" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {properties?.map((property: any) => (
-                              <SelectItem key={property.id} value={property.id}>{property.name}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )} />
+                  <div className="grid grid-cols-1 gap-5">
                     <FormField control={form.control} name="preferredPlan" render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-gray-700 font-medium">How Long Are You Staying? *</FormLabel>
