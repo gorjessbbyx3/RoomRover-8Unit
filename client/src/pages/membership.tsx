@@ -66,6 +66,10 @@ const roomPhotos = [
     caption: 'Welcome to 934 — neon-lit entrance with smart lock entry',
   },
   {
+    src: '/images/kitchen.jpeg',
+    caption: 'Shared kitchen with stainless steel fridge, marble counters & washer/dryer',
+  },
+  {
     src: '/images/room-1.jpeg',
     caption: 'Bright room with hardwood floors, ceiling fan & flat-screen TV',
   },
@@ -76,6 +80,14 @@ const roomPhotos = [
   {
     src: '/images/room-3.jpeg',
     caption: 'Clean room with built-in closet, A/C & ceiling fan',
+  },
+  {
+    src: '/images/bathroom-shower.jpeg',
+    caption: 'Shared bathroom — private shower stalls with subway tile',
+  },
+  {
+    src: '/images/bathroom-toilet.jpeg',
+    caption: 'Separate toilet stalls with window ventilation',
   },
 ];
 
@@ -285,7 +297,8 @@ export default function Membership() {
               { icon: Bath, label: 'Shared Bath' },
               { icon: Wifi, label: 'Free WiFi' },
               { icon: Tv, label: 'Flat-Screen TV' },
-              { icon: Wind, label: 'A/C & Ceiling Fan' },
+              { icon: Wind, label: 'A/C & Fan' },
+              { icon: Home, label: 'Washer/Dryer' },
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}
@@ -331,7 +344,7 @@ export default function Membership() {
               'A/C Unit',
               'Closet Space',
               'Smart Lock Entry',
-              'Hardwood Floors',
+              'Washer & Dryer',
             ].map(item => (
               <span key={item} className="flex items-center gap-1.5">
                 <Check className="h-3.5 w-3.5 text-emerald-400" />
