@@ -387,6 +387,31 @@ export default function Membership() {
           </div>
         </section>
 
+        {/* ═══════════════ NEIGHBORHOOD MAP ═══════════════ */}
+        <section className="py-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2" style={{ color: '#1a3a4a', fontFamily: "'Georgia', serif" }}>
+              Explore the Neighborhood
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto">
+              Leonard&#699;s Bakery is a 1-minute walk. Waik&#299;k&#299; Beach, the zoo, shopping &mdash; all just minutes away.
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto">
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+              <img
+                src="/images/neighborhood-map.jpg"
+                alt="Things to do near 934 Kapahulu Ave — Leonard's Bakery 1 min walk, Honolulu Zoo 5 min, Waikiki Beach 5 min, Diamond Head 10 min drive, Ala Moana Center 5 min"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+            <p className="text-center text-xs text-gray-400 mt-3">
+              &#127796; Walking distance to beaches, food, shopping &amp; more
+            </p>
+          </div>
+        </section>
+
         {/* ═══════════════ PRICING CARDS ═══════════════ */}
         <section className="py-10">
           <div className="text-center mb-10">

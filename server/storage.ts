@@ -271,7 +271,7 @@ export class MemStorage implements IStorage {
       frontDoorCode: "1234",
       codeExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
       rateDaily: "100.00",
-      rateWeekly: "500.00",
+      rateWeekly: "550.00",
       rateMonthly: "2000.00",
     };
     this.properties.set(p1.id, p1);
