@@ -266,8 +266,8 @@ export class MemStorage implements IStorage {
     // Create properties
     const p1: Property = {
       id: "P1",
-      name: "934 ClubHouse Premium",
-      description: "8 Rooms • Premium location with higher rates",
+      name: "934 Kapahulu",
+      description: "8 Rooms • Prime Kapahulu location near Waikiki",
       frontDoorCode: "1234",
       codeExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
       rateDaily: "100.00",
@@ -278,7 +278,7 @@ export class MemStorage implements IStorage {
 
     const p2: Property = {
       id: "P2",
-      name: "944 ClubHouse",
+      name: "944 Kapahulu",
       description: "10 Rooms • Value location with competitive rates",
       frontDoorCode: "5678",
       codeExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days

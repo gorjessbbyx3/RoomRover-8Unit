@@ -49,7 +49,7 @@ export default function Login() {
             Sign in to CRM
           </CardTitle>
           <p className="text-sm text-gray-600 mt-2">
-            Honolulu Private Residency Club Management
+            934 Kapahulu · Room Management
           </p>
         </CardHeader>
         <CardContent>
@@ -109,9 +109,9 @@ export default function Login() {
               variant="outline"
               className="w-full mt-3" 
               onClick={() => setLocation('/membership')}
-              data-testid="button-view-membership"
+              data-testid="button-view-rooms"
             >
-              View Membership Plans
+              View Available Rooms
             </Button>
           </form>
 

@@ -248,12 +248,12 @@ export default function Profile() {
         </CardContent>
       </Card>
 
-      {/* Membership Information */}
+      {/* Account Information */}
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Crown className="h-5 w-5" />
-            Membership Status
+            Account Status
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -263,8 +263,8 @@ export default function Profile() {
                 <MembershipBadge tier={user.membership?.tier || 'free'} />
                 <div>
                   <p className="font-medium">
-                    {user.membership?.tier === 'premium' ? 'Premium Member' :
-                     user.membership?.tier === 'pro' ? 'Pro Member' : 'Free Member'}
+                    {user.membership?.tier === 'premium' ? 'Premium Guest' :
+                     user.membership?.tier === 'pro' ? 'Pro Guest' : 'Standard Guest'}
                   </p>
                   <p className="text-sm text-gray-500">
                     Status: {user.membership?.status || 'active'}
@@ -286,14 +286,14 @@ export default function Profile() {
 
             {user.membership?.expires_at && (
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span className="text-sm text-gray-600">Membership expires:</span>
+                <span className="text-sm text-gray-600">Plan expires:</span>
                 <CountdownTimer expiresAt={user.membership.expires_at} />
               </div>
             )}
 
             {user.membership?.started_at && (
               <div className="text-sm text-gray-500">
-                Member since: {new Date(user.membership.started_at).toLocaleDateString()}
+                Guest since: {new Date(user.membership.started_at).toLocaleDateString()}
               </div>
             )}
           </div>

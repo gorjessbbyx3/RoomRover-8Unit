@@ -176,7 +176,7 @@ export default function InHouse() {
     onSuccess: () => {
       toast({
         title: 'Member Created',
-        description: 'New member created successfully.',
+        description: 'New guest created successfully.',
       });
       queryClient.invalidateQueries({ queryKey: ['/api/guests'] });
       setNewMemberDialogOpen(false);
@@ -315,7 +315,7 @@ export default function InHouse() {
             <div>
               <h1 className="text-xl font-bold tracking-tight">InHouse Management</h1>
               <p className="text-slate-400 text-sm mt-0.5">
-                Room status, member assignments & door codes · {user.property || 'All Properties'}
+                Room status, guest assignments & door codes · {user.property || 'All Properties'}
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -370,7 +370,7 @@ export default function InHouse() {
       <div className="bg-white rounded-2xl shadow-sm shadow-slate-200/60 border border-slate-100 overflow-hidden">
         <div className="px-6 py-4 border-b border-slate-100">
           <h2 className="text-base font-semibold text-slate-900">Room & Member Overview</h2>
-          <p className="text-xs text-slate-500 mt-0.5">Manage room assignments, member information, and access codes</p>
+          <p className="text-xs text-slate-500 mt-0.5">Manage room assignments, guest information, and access codes</p>
         </div>
         <div className="p-0">
           {isLoading ? (
@@ -565,7 +565,7 @@ export default function InHouse() {
         <DialogContent data-testid="dialog-guest-info">
           <DialogHeader>
             <DialogTitle>Member Information</DialogTitle>
-            <p className="text-sm text-gray-500">View member details and intake information.</p>
+            <p className="text-sm text-gray-500">View guest details and intake information.</p>
           </DialogHeader>
           {selectedGuest && (
             <div className="space-y-4">
@@ -659,7 +659,7 @@ export default function InHouse() {
         <DialogContent data-testid="dialog-new-member">
           <DialogHeader>
             <DialogTitle>Add New Member</DialogTitle>
-            <p className="text-sm text-gray-500">Create a new member profile.</p>
+            <p className="text-sm text-gray-500">Create a new guest profile.</p>
           </DialogHeader>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">

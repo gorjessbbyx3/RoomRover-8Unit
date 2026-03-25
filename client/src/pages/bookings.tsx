@@ -266,7 +266,7 @@ export default function Bookings() {
               Active Bookings
             </CardTitle>
             <p className="text-sm text-gray-500 mt-1">
-              Manage guest reservations and membership plans
+              Manage guest reservations and stay plans
             </p>
           </div>
           <div className="flex space-x-2">
@@ -476,7 +476,7 @@ export default function Bookings() {
                       name="plan"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Membership Plan *</FormLabel>
+                          <FormLabel>Stay Plan *</FormLabel>
                           <Select 
                             onValueChange={(value) => {
                               field.onChange(value);
@@ -490,7 +490,7 @@ export default function Bookings() {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="monthly">Monthly Membership (Recommended)</SelectItem>
+                              <SelectItem value="monthly">Long-Term Monthly (Recommended)</SelectItem>
                               <SelectItem value="weekly">Weekly Residency</SelectItem>
                               <SelectItem value="daily">Daily Access</SelectItem>
                             </SelectContent>

@@ -168,7 +168,7 @@ export default function Dashboard() {
               {statsLoading ? <Skeleton className="h-9 w-16" /> : (
                 <span className="text-3xl font-bold text-slate-900">{stats?.activeBookings || 0}</span>
               )}
-              <p className="text-xs text-violet-600 mt-1 font-medium">Current memberships</p>
+              <p className="text-xs text-violet-600 mt-1 font-medium">Active guests</p>
             </div>
           </div>
 

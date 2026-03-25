@@ -406,7 +406,7 @@ export default function Tracker({ params }: TrackerProps) {
 
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-500">
-          <p>&copy; 2024 Honolulu Private Residency Club. All rights reserved.</p>
+          <p>&copy; 2024 934 Kapahulu Rooms. All rights reserved.</p>
           <p className="mt-1">Affordable island living at 934 Kapahulu, Honolulu</p>
         </div>
       </div>
