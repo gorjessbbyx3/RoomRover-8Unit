@@ -62,6 +62,10 @@ type InquiryFormData = z.infer<typeof inquirySchema>;
 /* ──── Room photo gallery ──── */
 const roomPhotos = [
   {
+    src: '/images/hero-934-door.jpg',
+    caption: 'Welcome to 934 — neon-lit entrance with smart lock entry',
+  },
+  {
     src: '/images/room-1.jpeg',
     caption: 'Bright room with hardwood floors, ceiling fan & flat-screen TV',
   },
@@ -220,8 +224,8 @@ export default function Membership() {
         {/* Background image */}
         <div className="absolute inset-0">
           <img
-            src="/images/hero-934.jpeg"
-            alt="934 Kapahulu entrance"
+            src="/images/hero-934-wide.jpg"
+            alt="934 Kapahulu storefront at dusk"
             className="w-full h-full object-cover"
           />
           {/* Dark overlay for text readability */}
