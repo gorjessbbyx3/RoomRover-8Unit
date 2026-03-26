@@ -66,10 +66,10 @@ function AppContent() {
               </div>
               <h1 className="text-2xl font-bold text-gray-900 mb-4">Inquiry Submitted!</h1>
               <p className="text-gray-600 mb-6">
-                Mahalo for your interest in staying at 934 Kapahulu! We've received your inquiry and will get back to you soon.
+                Mahalo for your interest in staying at 934 Kapahulu! We've sent a confirmation email with your tracking token — check your inbox (and spam folder).
               </p>
               <p className="text-sm text-gray-500 mb-6">
-                You can track the status of your inquiry using the tracking token we provided.
+                You can track the status of your inquiry using the tracking token we emailed you.
               </p>
               <a 
                 href="/membership" 

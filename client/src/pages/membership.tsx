@@ -3,6 +3,36 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
+/* ──── EmailJS Config ──── */
+const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';   // TODO: replace
+const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';   // TODO: replace
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // TODO: replace
+
+async function sendConfirmationEmail(params: {
+  to_email: string;
+  to_name: string;
+  plan: string;
+  tracking_token: string;
+  tracker_url: string;
+}) {
+  try {
+    const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_PUBLIC_KEY,
+        template_params: params,
+      }),
+    });
+    if (!res.ok) throw new Error('Email send failed');
+    console.log('Confirmation email sent to', params.to_email);
+  } catch (err) {
+    console.warn('EmailJS error (non-blocking):', err);
+  }
+}
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -200,10 +230,27 @@ export default function Membership() {
       return response.json();
     },
     onSuccess: (data) => {
+      // Grab form values before reset for the email
+      const formVals = form.getValues();
+      const planLabels: Record<string, string> = {
+        daily: 'Short Stay (Nightly)',
+        weekly: 'Weekly Stay',
+        monthly: 'Long-Term (Monthly)',
+      };
+
+      // Fire confirmation email (non-blocking)
+      sendConfirmationEmail({
+        to_email: formVals.email,
+        to_name: formVals.name,
+        plan: planLabels[formVals.preferredPlan] || formVals.preferredPlan,
+        tracking_token: data.trackerToken,
+        tracker_url: `${window.location.origin}/track/${data.trackerToken}`,
+      });
+
       form.reset();
       toast({
         title: 'Inquiry Submitted!',
-        description: `We received your request! Save this tracking token: ${data.trackerToken}`,
+        description: `We sent a confirmation to ${formVals.email} with your tracking token.`,
         duration: 10000,
       });
       setTimeout(() => setLocation('/track/success'), 3000);
@@ -684,8 +731,8 @@ export default function Membership() {
           <div className="mt-4 rounded-2xl p-5 flex items-start gap-4" style={{ background: '#fdf8ef', border: '1px solid #f0e4c8' }}>
             <Sparkles className="h-5 w-5 text-amber-500 mt-0.5 flex-shrink-0" />
             <div>
-              <h3 className="font-bold text-gray-700 mb-1">Save Your Tracking Token</h3>
-              <p className="text-sm text-gray-500">After you submit you&#699;ll get a unique token — <strong>save it!</strong> You&#699;ll need it to check your status later.</p>
+              <h3 className="font-bold text-gray-700 mb-1">Check Your Email</h3>
+              <p className="text-sm text-gray-500">After you submit, we&#699;ll email you a tracking token and confirmation. Check your inbox (and spam) &mdash; you&#699;ll need the token to check your status later.</p>
             </div>
           </div>
         </section>
