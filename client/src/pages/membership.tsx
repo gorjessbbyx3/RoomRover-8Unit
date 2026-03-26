@@ -330,12 +330,24 @@ export default function Membership() {
           </h1>
 
           <p
-            className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mb-10"
+            className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mb-6"
             style={{ fontFamily: "'Georgia', serif", textShadow: '0 1px 8px rgba(0,0,0,0.2)' }}
           >
             Cozy private rooms for short stays or long-term living in the heart of Kapahulu.
             Shared kitchen &amp; bath, steps from Waik&#299;k&#299; &amp; Diamond Head.
           </p>
+
+          {/* Availability nudge */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
+            style={{ background: 'rgba(251,191,36,0.15)', border: '1px solid rgba(251,191,36,0.25)' }}
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-300" />
+            </span>
+            <span className="text-sm font-medium text-amber-200">Only 8 rooms — limited availability</span>
+          </div>
 
           {/* Quick feature pills */}
           <div className="flex flex-wrap justify-center gap-3">
@@ -478,11 +490,23 @@ export default function Membership() {
             </div>
           ) : (
             <>
-              {properties?.map((property: any) => (
+              {properties?.map((property: any) => {
+                const daily = parseFloat(property.rateDaily);
+                const weekly = parseFloat(property.rateWeekly);
+                const monthly = parseFloat(property.rateMonthly);
+                const weeklySave = Math.round(daily * 7 - weekly);
+                const monthlySave = Math.round(daily * 30 - monthly);
+
+                const scrollToForm = (plan: string) => {
+                  form.setValue('preferredPlan', plan);
+                  document.getElementById('inquiry')?.scrollIntoView({ behavior: 'smooth' });
+                };
+
+                return (
                 <div key={property.id} className="mb-8">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Daily */}
-                    <div className="rounded-2xl p-6 bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+                    <div className="rounded-2xl p-6 bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col">
                       <div className="flex items-center gap-2 mb-4">
                         <Clock className="h-5 w-5 text-blue-400" />
                         <span className="text-sm font-semibold text-blue-500 uppercase tracking-wider">Short Stay</span>
@@ -492,17 +516,23 @@ export default function Membership() {
                         <span className="text-gray-400 text-sm ml-1">/ night</span>
                       </div>
                       <p className="text-sm text-gray-500 mb-5">Perfect for quick visits or trying us out.</p>
-                      <ul className="space-y-2.5 text-sm text-gray-600">
+                      <ul className="space-y-2.5 text-sm text-gray-600 mb-6 flex-1">
                         {['Private furnished room', 'Shared kitchen & bath', 'Free WiFi & TV', 'Keyless smart lock'].map(item => (
                           <li key={item} className="flex items-center gap-2">
                             <Check className="h-4 w-4 text-emerald-400 flex-shrink-0" />{item}
                           </li>
                         ))}
                       </ul>
+                      <button
+                        onClick={() => scrollToForm('daily')}
+                        className="w-full py-2.5 rounded-xl text-sm font-semibold border-2 border-blue-200 text-blue-600 hover:bg-blue-50 transition-colors"
+                      >
+                        Book Short Stay
+                      </button>
                     </div>
 
                     {/* Weekly */}
-                    <div className="relative rounded-2xl p-6 bg-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1" style={{ border: '2px solid #3a7565' }}>
+                    <div className="relative rounded-2xl p-6 bg-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col" style={{ border: '2px solid #3a7565' }}>
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-0.5 rounded-full text-xs font-bold text-white tracking-wider" style={{ background: '#3a7565' }}>
                         POPULAR
                       </div>
@@ -510,22 +540,30 @@ export default function Membership() {
                         <Star className="h-5 w-5 text-amber-400" />
                         <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#3a7565' }}>Weekly Stay</span>
                       </div>
-                      <div className="mb-4">
+                      <div className="mb-2">
                         <span className="text-4xl font-extrabold text-gray-800">${property.rateWeekly}</span>
                         <span className="text-gray-400 text-sm ml-1">/ week</span>
                       </div>
+                      <p className="text-xs font-semibold text-emerald-600 mb-4">Save ${weeklySave} vs. 7 nights at ${daily}/night</p>
                       <p className="text-sm text-gray-500 mb-5">Great value for extended island visits.</p>
-                      <ul className="space-y-2.5 text-sm text-gray-600">
-                        {['Everything in Short Stay', 'Weekly linen refresh', 'Priority support', 'Save vs. nightly rate'].map(item => (
+                      <ul className="space-y-2.5 text-sm text-gray-600 mb-6 flex-1">
+                        {['Everything in Short Stay', 'Weekly linen refresh', 'Priority support', `Save $${weeklySave} per week`].map(item => (
                           <li key={item} className="flex items-center gap-2">
                             <Check className="h-4 w-4 text-emerald-400 flex-shrink-0" />{item}
                           </li>
                         ))}
                       </ul>
+                      <button
+                        onClick={() => scrollToForm('weekly')}
+                        className="w-full py-2.5 rounded-xl text-sm font-semibold text-white transition-colors"
+                        style={{ background: '#3a7565' }}
+                      >
+                        Book Weekly Stay
+                      </button>
                     </div>
 
                     {/* Monthly */}
-                    <div className="relative rounded-2xl p-6 text-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1" style={{ background: 'linear-gradient(135deg, #1a3a4a, #2d5f5f, #3a7565)' }}>
+                    <div className="relative rounded-2xl p-6 text-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col" style={{ background: 'linear-gradient(135deg, #1a3a4a, #2d5f5f, #3a7565)' }}>
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-0.5 rounded-full text-xs font-bold tracking-wider" style={{ background: '#c57b3a', color: '#fff' }}>
                         BEST VALUE
                       </div>
@@ -533,22 +571,31 @@ export default function Membership() {
                         <Heart className="h-5 w-5 text-amber-300" />
                         <span className="text-sm font-semibold text-amber-200 uppercase tracking-wider">Long-Term</span>
                       </div>
-                      <div className="mb-4">
+                      <div className="mb-2">
                         <span className="text-4xl font-extrabold">${property.rateMonthly}</span>
                         <span className="text-white/60 text-sm ml-1">/ month</span>
                       </div>
+                      <p className="text-xs font-semibold text-amber-300 mb-4">Save ${monthlySave} vs. 30 nights at ${daily}/night</p>
                       <p className="text-sm text-white/70 mb-5">Make Kapahulu your home. Best rate.</p>
-                      <ul className="space-y-2.5 text-sm text-white/80">
+                      <ul className="space-y-2.5 text-sm text-white/80 mb-6 flex-1">
                         {['Everything in Weekly', 'Bi-weekly housekeeping', 'Guaranteed room', 'Island life, locked in'].map(item => (
                           <li key={item} className="flex items-center gap-2">
                             <Sparkles className="h-4 w-4 text-amber-300 flex-shrink-0" />{item}
                           </li>
                         ))}
                       </ul>
+                      <button
+                        onClick={() => scrollToForm('monthly')}
+                        className="w-full py-2.5 rounded-xl text-sm font-semibold transition-colors"
+                        style={{ background: 'rgba(255,255,255,0.2)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)' }}
+                      >
+                        Book Long-Term
+                      </button>
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </>
           )}
         </section>
